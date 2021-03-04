@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-console.log(chalk.black.bgMagentaBright.underline(`Conectando a  -> ${process.env.MONGODB_LOCATION}`));
+console.log(chalk.rgb(255,255,255).bgMagenta.underline(`Conectando a  -> ${process.env.MONGODB_LOCATION}`));
 MongoClient.connect(
   process.env.MONGODB_URI,
   {
