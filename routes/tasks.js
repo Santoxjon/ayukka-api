@@ -87,5 +87,25 @@ router.put('/update', function (req, res, next) {
         })
 });
 
+router.delete('/delete', function (req, res, next) {
+    let _id = new ObjectId(req.body.columnId);
+    let id = req.body.taskId;
+
+    req.app.locals.db.collection("columns").update(
+        { _id },
+        { $pull: { tasks: { id } } }
+        ,
+        function (err) {
+            if (err != null) {
+                console.log(err);
+                res.send({ mensaje: "error: " + err });
+            } else {
+                res.json('Exito');
+            }
+        }
+    )
+
+});
+
 
 module.exports = router;
