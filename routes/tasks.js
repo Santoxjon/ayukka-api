@@ -104,8 +104,47 @@ router.delete('/delete', function (req, res, next) {
             }
         }
     )
-
 });
 
+router.put('/move', function (req, res, next) {
+    let _id = new ObjectId(req.body.columnId);
+    let newColumnId = new ObjectId(req.body.newColumnId);
+    let id = +req.body.taskId;
+
+    console.log("Column id: " + _id);
+    console.log("Task id: " + id);
+    console.log("New column id: " + newColumnId);
+
+    req.app.locals.db.collection("columns").findOne({ _id }, function (err, data) {
+        if (err != null) {
+            console.log(err);
+            res.send({ mensaje: "error: " + err });
+        } else {
+            let task = data.tasks.filter(task => task.id === id)[0];
+
+            req.app.locals.db.collection("columns").update(
+                { _id },
+                { $pull: { tasks: { id: task.id } } }
+                ,
+                function (err) {
+                    if (err != null) {
+                        console.log(err);
+                        res.send({ mensaje: "error: " + err });
+                    } else {
+                        req.app.locals.db.collection("columns").updateOne({ "_id": newColumnId }, { $push: { tasks: task } }, function (err) {
+                            if (err != null) {
+                                console.log(err);
+                                res.send({ mensaje: "error: " + err });
+                            } else {
+                                res.json("Success")
+                            }
+                        });
+                    }
+                }
+            )
+
+        }
+    });
+});
 
 module.exports = router;
