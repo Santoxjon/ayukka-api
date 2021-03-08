@@ -46,7 +46,7 @@ router.put('/:col_id/update', (req, res) => {
     )
 });
 
-router.delete('/:col_id/delete', (req, res) => {
+router.delete('/:col_id/deleteCol', (req, res) => {
     let _id = new ObjectId(req.body.columnId);
 
     req.app.locals.db.collection("columns").deleteOne({ _id }, (err) => {
