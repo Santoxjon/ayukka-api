@@ -5,9 +5,7 @@ var router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-
-/* GET home page. */
-router.post('/create', function (req, res, next) {
+router.post('/create', (req, res) => {
     let id = parseInt(new Date().getTime());
     let name = req.body.name;
     let tasktext = req.body.tasktext;
@@ -26,7 +24,7 @@ router.post('/create', function (req, res, next) {
     });
 });
 
-router.get('/:column_id/:task_id', function (req, res, next) {
+router.get('/:column_id/:task_id', (req, res) => {
     const _id = new ObjectId(req.params.column_id);
     const id = req.params.task_id;
 
@@ -40,7 +38,7 @@ router.get('/:column_id/:task_id', function (req, res, next) {
     });
 });
 
-router.put('/update', function (req, res, next) {
+router.put('/update', (req, res) => {
     let _id = new ObjectId(req.body.columnId);
     let id = req.body.taskId;
     let name = req.body.name;
@@ -87,7 +85,7 @@ router.put('/update', function (req, res, next) {
         })
 });
 
-router.delete('/delete', function (req, res, next) {
+router.delete('/delete', (req, res) => {
     let _id = new ObjectId(req.body.columnId);
     let id = req.body.taskId;
 
@@ -106,7 +104,7 @@ router.delete('/delete', function (req, res, next) {
     )
 });
 
-router.put('/move', function (req, res, next) {
+router.put('/move', (req, res) => {
     let _id = new ObjectId(req.body.columnId);
     let newColumnId = new ObjectId(req.body.newColumnId);
     let id = +req.body.taskId;

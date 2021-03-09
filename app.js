@@ -6,7 +6,6 @@ var logger = require('morgan');
 const chalk = require('chalk');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var columnsRouter = require('./routes/columns');
 var tasksRouter = require('./routes/tasks');
 
@@ -31,7 +30,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/columns', columnsRouter);
 app.use('/columns/tasks', tasksRouter);
 
