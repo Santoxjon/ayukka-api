@@ -29,7 +29,7 @@ router.get('/:col_id', (req, res) => {
     });
 });
 
-router.put('/:col_id/update', (req, res) => {
+router.put('/:col_id/updateCol', (req, res) => {
     let _id = new ObjectId(req.body.columnId);
     let name = req.body.name;
     let description = req.body.description
